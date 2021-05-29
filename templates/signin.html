@@ -1,0 +1,91 @@
+<html>
+
+<head>
+  <title>Sign in</title>
+  {% if error %}
+  <script>
+    alert('{{message}}');
+  </script>
+  {% endif %}
+  {% if success %}
+  <script>
+    alert('{{message}}');
+  </script>
+  {% endif %}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+
+    #grad1 {
+      background-image: linear-gradient(to bottom left, rgba(37, 60, 83, 0.657), rgb(77, 116, 180));
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  </style>
+</head>
+
+<body id="grad1" style="overflow-y: hidden; padding-top:100px;color:grey">
+  <div class="container w3-center rounded ">
+    <div class="shadow p-3 mb-5 bg-white rounded"
+      style="background-color:white;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); ">
+      <h1 class="text" style="font-family: Times New Roman, Times, serif; text-align: center;  ">SIYA JOB FINDER</h1>
+      <hr>
+      <br class="w3-hide-small"><br>
+      <h3 class="text"
+        style="font-family: Times New Roman, Times, serif; text-align: left; float:left;padding-left:20px; "> Sign in
+      </h3><br><br><br>
+      <center>
+        <form action="/signin" method="POST">
+          <div class="input-group mb-3" style="width:80%">
+            <div class="input-group-prepend">
+              <span class="input-group-text w3-white"><i class="fa fa-envelope text" style="font-size:20px"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="Email" id="email" name="email"
+              style="font-family: Times New Roman, Times, serif;" required>
+          </div>
+          <div class="input-group mb-3" style="width: 80%;">
+            <div class="input-group-prepend">
+              <span class="input-group-text w3-white"><i class="fa fa-key text" style="font-size:20px"></i></span>
+            </div>
+            <input type="password" class="form-control" placeholder="Password" id="password" name="password"
+              style="font-family: Times New Roman, Times, serif;" required minlength="6">
+            <div class="input-group-append">
+              <span class="input-group-text w3-white "><i class="far fa-eye text" id="togglePassword"></i></span>
+            </div>
+          </div>
+          <br>
+          <button id="grad2" class="btn btn-secondary"
+            style="border-radius: 8px;width: 200px;font-family: Times New Roman, Times, serif;">sign in</button>
+        </form>
+        <br>
+        <a href="/forgotpassword" style="text-decoration: none; font-family: Times New Roman, Times, serif; color:grey">forgot
+          Password?</a><br><br>
+        <p style="font-family: Times New Roman, Times, serif; ">Don't have an account?<a href="/register"
+            style="text-decoration:none;font-family: Times New Roman, Times, serif; color:grey"> sign up</a></p>
+    </div>
+    </center>
+  </div>
+  <script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+    togglePassword.addEventListener('click', function (e) {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      this.classList.toggle('fa-eye-slash');
+    });
+  </script>
+</body>
+
+</html>

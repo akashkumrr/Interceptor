@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}User Profile{% endblock %}
+{% block page_content %}
+{% if error %}
+<script>
+  alert('{{message}}');
+</script>
+{% endif %}
+{% if success %}
+<script>
+  alert('{{message}}');
+</script>
+{% endif %}
+<body style="color: grey">
+  <br><br><br><br>
+  <div class="container">
+    <h1 style="font-size:45px"><b>user profile</b></h1>
+  </div>
+  <br>
+  <div class="container w3-center rounded ">
+    <div class="shadow p-3 mb-5 bg-white rounded">
+        <form action="/user" method="POST">
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">email :</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value="{{email}}" disabled>
+                </div>
+              </div><br><br>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="userid">id :</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="userid"  name="userid" value="{{userid}}" disabled>
+                </div>
+              </div><br><br>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="name">name :</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" value="{{name}}">
+                </div>
+              </div><br><br>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="phone">phone :</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="phone" pattern="[0-9]{10}" placeholder="Enter Phone" name="phone" value="{{phone}}">
+                </div>
+              </div><br><br>
+              <div class="form-group">
+                <a href="/changepassword"><b>click here</b></a> to send change password link
+              </div><br>
+            <button type="submit" class="btn w3-grey" style="width:50%">update</button>
+            <br><br>
+          </form>
+    </div>
+    </div>
+</body>
+{% endblock %}

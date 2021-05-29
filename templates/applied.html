@@ -1,0 +1,387 @@
+{% extends "base.html" %}
+{% block title %}Shared{% endblock %}
+{% block page_content %}
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+<script>
+
+  $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();    
+});
+
+  $(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+</script>
+
+
+<body style="color:grey">
+  <meta charset="UTF-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <br><br><br><br>
+  <div class="container">
+    <h1 style="font-size:45px; float: left; "><b>Applied</b></h1>
+  </div>
+  <br>
+
+    <div class="container">
+      <input class="form-control" id="myInput" type="text" placeholder="Search.." style="background-color: white;">
+      <br>
+      </div>
+
+<div class="container">
+  
+  <a href="/applied/{{start_page-1}}/{{company_selected_arg}}/{{experience_arg}}/{{location_arg}}"> <button style="float: left;" type="button" class="btn btn-sm w3-blue-grey">Prev</button>
+    </a>
+
+    <a href="/applied/{{start_page+1}}/{{company_selected_arg}}/{{experience_arg}}/{{location_arg}}">
+      <button style="float: right;" type="button" class="btn btn-sm w3-blue-grey">Next</button>
+    </a> 
+
+
+    <input id="greeting_input" type="number" placeholder="{{start_page}}" style="text-align: center">
+    /{{max_page_number}}
+
+    <a href='#' id='link_to_page'><button id="my_page_button">Go to</button></a>
+
+    <script>
+      document.getElementById("greeting_input").onchange = function () {
+           var pg_no = document.getElementById("greeting_input").value;
+           document.getElementById("link_to_page").href="/applied/"+pg_no+"/"+"{{company_selected_arg}}"+"/{{experience_arg}}"+"/{{location_arg}}";  
+      }
+    </script>
+
+    <select class="js-example-basic-multiple" name="states[]" multiple="multiple" id="myDrop">
+      <p> ALL  </p>
+    <option value="company_default">All Companies</option>
+    {% for company in company_list %}
+      <p> {{ company }} </p>
+    <option value="{{ company }}">{{ company }}</option>
+    
+    {% endfor %}
+  </select>
+
+  <a href='#' id='select2comp'><button id="my_page_button">Set Company</button></a>
+  <script >
+
+      document.getElementById("myDrop").onchange = function () {
+
+
+           var c_name2 = $("#myDrop").select2("val")
+           console.log("Company name : "+c_name2)
+
+           if(c_name2=="" | !c_name2)
+          {
+            console.log(" Companies is null !! setting default company")
+
+            document.getElementById("select2comp").href="/applied/1/"+"company_default"+"/{{experience_arg}}"+"/{{location_arg}}";  
+
+          }
+          else
+          {
+           document.getElementById("select2comp").href="/applied/1/"+c_name2+"/{{experience_arg}}"+"/{{location_arg}}";  
+           }
+      }
+    </script>
+
+    <select class="js-example-basic-multiple" name="states[]" multiple="multiple" id="mySelect2Drop">
+      <p> ALL  </p>
+    <option value="location_default$">All Locations</option>
+    {% for location in locations_list %}
+      <p> {{ location }} </p>
+    <option value="{{ location }}">{{ location }}</option>
+    
+    {% endfor %}
+  </select>
+
+  <a href='#' id='select2loc'><button id="my_page_button">Set Location</button></a>
+  <script >
+
+      document.getElementById("mySelect2Drop").onchange = function () {
+           //var c_name = document.getElementById("cars").value;
+           //var the_pg_no = document.getElementById("greeting_input").getAttribute("placeholder");
+
+           var job_loc = $("#mySelect2Drop").select2("val")
+           console.log("Locations : "+job_loc)
+           //console.log(typeof job_loc)
+           
+           var location_from_select = [];
+
+           for (var key in job_loc) 
+           {
+            if (job_loc.hasOwnProperty(key)) {
+                //console.log(key + " -> " + job_loc[key]);
+
+                if(job_loc[key]!="location_default$")
+                  {location_from_select.push(job_loc[key]+"$");}
+                else
+                {
+                  location_from_select.push(job_loc[key]);
+                }
+
+                }
+
+               
+            }
+
+            if(job_loc=="" | !job_loc)
+          {
+            console.log(" Location is null !! Setting the href default location")
+
+            document.getElementById("select2loc").href="/applied/1/"+"{{company_selected_arg}}"+"/{{experience_arg}}"+"/"+"location_default$"
+          }
+          else
+          {
+
+            console.log("Formatted Locations for sending : "+location_from_select)
+           document.getElementById("select2loc").href="/applied/1/"+"{{company_selected_arg}}"+"/{{experience_arg}}"+"/"+location_from_select;  
+         }
+           
+      }
+    </script>
+
+    <select class="js-example-basic-single" name="states" id="my_exp_drop">
+    <option value="experience_default"> All Experience </option>
+    <option value="0"> <= 0 years </option>
+    <option value="2"><= 2 years</option>
+    <option value="4"><= 4 years</option>
+    <option value="5"><= 5 years</option>
+    <option value="8"><= 8 years</option>
+    <option value="10"><= 10 years</option>
+    <option value="15"><= 15 years</option>   
+    <option value="20"><= 20 years</option>
+    
+
+  </select>
+
+  <a href='#' id='select2exp'><button id="my_page_button">Set Exp</button></a>
+  <script >
+
+      document.getElementById("my_exp_drop").onchange = function () {
+           //var c_name = document.getElementById("cars").value;
+           //var the_pg_no = document.getElementById("greeting_input").getAttribute("placeholder");
+
+           var exp = $("#my_exp_drop").select2("val")
+           console.log("Locations : "+exp)
+           //console.log(typeof job_loc)
+           
+           var location_from_select = [];
+
+           for (var key in exp) 
+           {
+            if (exp.hasOwnProperty(key)) {
+                //console.log(key + " -> " + exp[key]);
+
+                if(exp[key]!="location_default$")
+                  {location_from_select.push(exp[key]+"$");}
+                else
+                {
+                  location_from_select.push(exp[key]);
+                }
+
+                }
+
+                
+            }
+
+            if(exp=="" | !exp)
+          {
+            console.log(" Location is null !! Setting the href default location")
+
+            document.getElementById("select2exp").href="/applied/1/"+"{{company_selected_arg}}"+"/"+"experience_default"+"/{{location_arg}}"
+          }
+          else
+          {
+
+            console.log("Formatted Locations for sending : "+location_from_select)
+           document.getElementById("select2exp").href="/applied/1/"+"{{company_selected_arg}}"+"/"+exp+"/{{location_arg}}";  
+         }
+           
+      }
+    </script>
+
+
+    <script>
+      $(document).ready ( 
+        function(){
+          //alert('ok');
+      });
+
+      $(document).ready (
+        function(){
+
+          var chosen_exp = '{{experience_arg}}'
+          //console.log(typeof chosen_companies);
+
+          if(chosen_exp=="" | !chosen_exp)
+          {
+            console.log(" STARTING Experience is null !!")
+            $('#my_exp_drop').val("100");
+            $('#my_exp_drop').select2().trigger('change');
+          }
+          else
+          {
+          console.log("Chosen exp : "+chosen_exp);
+          //console.log("lenght location " + chosen_locations.length)
+
+          $('#my_exp_drop').val(chosen_exp);
+            $('#my_exp_drop').select2().trigger('change');  
+          }   
+      });
+
+
+      $(document).ready ( 
+        function(){
+
+          var chosen_companies = {{selected_companies_list|safe}}
+          //console.log(typeof chosen_companies);
+           if(chosen_companies=="" | !chosen_companies)
+          {
+            console.log(" STARTING Companies is null !!")
+            $('#myDrop').val("company_default");
+            $('#myDrop').select2().trigger('change');
+          }
+          else
+          {
+          console.log("Chosen Company name : "+chosen_companies);
+
+          $('#myDrop').val(chosen_companies);
+            $('#myDrop').select2().trigger('change');  
+            }   
+      });
+
+      $(document).ready (
+        function(){
+
+          var chosen_locations = {{selected_location_list|safe}}
+          //console.log(typeof chosen_companies);
+
+          if(chosen_locations=="")
+          {
+            console.log(" STARTING Locations is null !!")
+            $('#mySelect2Drop').val("location_default$");
+            $('#mySelect2Drop').select2().trigger('change');
+          }
+          else
+          {
+          console.log("Chosen locations : "+chosen_locations);
+          //console.log("lenght location " + chosen_locations.length)
+
+          for (index = 0; index < chosen_locations.length; index++) 
+          {
+            console.log(chosen_locations[index]+" , hi");          
+          }
+
+          $('#mySelect2Drop').val(chosen_locations);
+            $('#mySelect2Drop').select2().trigger('change');  
+          }   
+      });
+      
+    </script>
+</div>
+
+
+      <div class='table-responsive' id="myTable">
+        <table class="table table-hover" style="background-color: white; width: 100%; color:grey" id="sort">
+        <thead>
+            <tr>
+              <th></th>
+              <th style="text-align:center;" width="25%" onclick="sortTable(0)">Company Name <i class="fa fa-sort fa-sm"
+                  aria-hidden="true"></i></th>
+              <th style="text-align:center;" onclick="sortTable(1)">Job Position <i class="fa fa-sort fa-sm"
+                  aria-hidden="true"></i></th>
+              <th style="text-align:center;" onclick="sortTable(2)">Job Location <i class="fa fa-sort fa-sm"
+                aria-hidden="true"></i></th>
+              <th style="text-align:center;" onclick="sortTable(3)">Experience <i class="fa fa-sort fa-sm"
+                aria-hidden="true"></i></th>
+              <th style="text-align:center;" onclick="sortTable(4)">Time Posted <i class="fa fa-sort fa-sm"
+                aria-hidden="true"></i></th>
+            </tr>
+          </thead>
+          <tbody id="myTable1">
+            {% for row in (lst) %}
+          <tr>
+            <td><input id="checkbox" class="checkbox" type="checkbox" name="type" value="{{row}}"></td>
+            <td style="text-align:center;" >{{row['Company_name']}}</td>
+            <td style="text-align:center;">{{row['Job_position']}}</td>
+            <td style="text-align:center;">{{row['Job_location']}}</td>
+            <td style="text-align:center;">{{row['Experience']}}</td>
+            <td style="text-align:center;">{{row['Time_posted']}}</td>
+          </tr>
+            {%endfor%}
+          </tbody>
+        </table>
+      </div>
+    
+
+  </div>
+  <script>
+    function sortTable(n) {
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("sort");
+      switching = true;
+      //Set the sorting direction to ascending:
+      dir = "asc";
+      /*Make a loop that will continue until
+      no switching has been done:*/
+      while (switching) {
+        //start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /*Loop through all table rows (except the
+        first, which contains table headers):*/
+        for (i = 1; i < (rows.length - 1); i++) {
+          //start by saying there should be no switching:
+          shouldSwitch = false;
+          /*Get the two elements you want to compare,
+          one from current row and one from the next:*/
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          /*check if the two rows should switch place,
+          based on the direction, asc or desc:*/
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              //if so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              //if so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          /*If a switch has been marked, make the switch
+          and mark that a switch has been done:*/
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          //Each time a switch is done, increase this count by 1:
+          switchcount++;
+        } else {
+          /*If no switching has been done AND the direction is "asc",
+          set the direction to "desc" and run the while loop again.*/
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+  </script>
+  <br><br><br><br>
+</body>
+{% endblock %}
