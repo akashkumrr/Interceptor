@@ -4,7 +4,7 @@ An automation tool which assists in finding jobs online, increasing opportunitie
 ## Prime Motivation
 While searching for jobs online I often found myself reading too many the job descriptions which didn't match my profile and thus wasting time, even after applying the filters. Due to inaccurate filters many job opportunities were being missed out and, I had to spend time manually going through all the job postings for a role.
 
-So, I thought of creating a tool which does the job hunt for you and helps you find the job you want!
+So, I thought of creating a tool which automates the job hunt and helps you find the job you want!
 
 ## Features:
  * Manage all your applied jobs at once place
